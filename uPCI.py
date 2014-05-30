@@ -8,6 +8,9 @@ def read_file(file_name):
         if n1 not in graph:
             graph[n1] = []
         graph[n1].append(n2)
+        if n2 not in graph:
+            graph[n2] = []
+        graph[n2].append(n1)
     return graph
 
 
