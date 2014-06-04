@@ -5,12 +5,12 @@ import matplotlib.pyplot as plt
 u = 1
 
 
-def save_obj(obj, name ):
+def save_obj(obj, name):
     with open(name + '.pkl', 'wb') as f:
         pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
 
 
-def load_obj(name ):
+def load_obj(name):
     with open(name + '.pkl', 'r') as f:
         return pickle.load(f)
 
@@ -137,7 +137,7 @@ def main():
     #print get_most_influential_nodes_upci(graph, 10)
 
     # Draw uPCI
-    #draw_upci(graph)
+    draw_upci(graph)
 
     # Draw k-shell
     draw_kshell(graph)
