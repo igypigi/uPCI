@@ -44,7 +44,6 @@ def compute_upci(graph, node):
                 e += 1
         if k <= u * neighbour_degree <= k + e:
             return neighbour_degree
-    return -1
 
 
 def upci_for_every_node(graph):
@@ -53,7 +52,8 @@ def upci_for_every_node(graph):
         upci = compute_upci(graph, node)
         if upci not in upcis:
             upcis[upci] = []
-        upcis[upci].append(node)
+        if upci is not None:
+            upcis[upci].append(node)
     return sorted(upcis.iteritems())
 
 
@@ -117,8 +117,8 @@ def draw_upci(graph):
 
 
 def draw_kshell(graph):
-    kshell_nodes = load_obj('kshell')
-    #kshell_nodes = kshell_for_every_node(graph)
+    #kshell_nodes = load_obj('kshell')
+    kshell_nodes = kshell_for_every_node(graph)
     #save_obj(kshell_nodes, 'kshell')
     x = []
     y = []
@@ -133,11 +133,11 @@ def draw_kshell(graph):
 
 
 def main():
-    graph = read_file("ca-AstroPh.txt")
+    graph = read_file("roadNet-PA.txt")
     #print get_most_influential_nodes_upci(graph, 10)
 
     # Draw uPCI
-    draw_upci(graph)
+    #draw_upci(graph)
 
     # Draw k-shell
     draw_kshell(graph)
