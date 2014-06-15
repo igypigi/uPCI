@@ -1,24 +1,26 @@
 import pickle
 import matplotlib.pyplot as plt
+import time
 
 
 u = 1
 
 
 def save_obj(obj, name):
-    with open(name + '.pkl', 'wb') as f:
+    with open(name + ".pkl", "wb") as f:
         pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
 
 
 def load_obj(name):
-    with open(name + '.pkl', 'r') as f:
+    with open(name + ".pkl", "r") as f:
         return pickle.load(f)
 
 
 def read_file(file_name):
+    print "File:", file_name
     graph = {}
     for line in open(file_name).readlines():
-        (n1, n2) = [int(x) for x in line.strip().split('\t')]
+        (n1, n2) = [int(x) for x in line.strip().split("\t")]
         if n1 not in graph:
             graph[n1] = []
         graph[n1].append(n2)
@@ -110,37 +112,42 @@ def draw_upci(graph):
         for node in nodes:
             x.append(upci/2)
             y.append(len(graph[node]))
-    plt.plot(x, y, 'ro')
-    plt.yscale('log')
+    plt.plot(x, y, "ro")
+    plt.yscale("log")
     plt.axis([0, 120, 0, 1000])
     plt.show()
 
 
 def draw_kshell(graph):
-    #kshell_nodes = load_obj('kshell')
+    #kshell_nodes = load_obj("kshell")
     kshell_nodes = kshell_for_every_node(graph)
-    #save_obj(kshell_nodes, 'kshell')
+    #save_obj(kshell_nodes, "kshell")
     x = []
     y = []
     for (kshell, nodes) in kshell_nodes:
-        for index, node in enumerate(nodes):
+        for node in nodes:
             x.append(kshell / 2)
             y.append(len(graph[node]))
-    plt.plot(x, y, 'ro')
-    plt.yscale('log')
+    plt.plot(x, y, "ro")
+    plt.yscale("log")
     plt.axis([0, 60, 0, 1000])
     plt.show()
 
 
 def main():
-    graph = read_file("roadNet-PA.txt")
+    files = ["CA-CondMat.txt", "ca-AstroPh.txt", "facebook_combined.txt", "roadNet-PA.txt"]
+    graph = read_file(files[1])
     #print get_most_influential_nodes_upci(graph, 10)
 
     # Draw uPCI
-    #draw_upci(graph)
+    start_time = time.time()
+    draw_upci(graph)
+    print "uPCI:", time.time() - start_time, "seconds"
 
     # Draw k-shell
+    start_time = time.time()
     draw_kshell(graph)
+    print "k-shell:", time.time() - start_time, "seconds"
 
 if __name__ == "__main__":
     main()
