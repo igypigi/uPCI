@@ -135,8 +135,8 @@ def draw_kshell(graph):
 
 
 def main():
-    files = ["CA-CondMat.txt", "ca-AstroPh.txt", "facebook_combined.txt", "roadNet-PA.txt"]
-    graph = read_file(files[1])
+    files = ["CA-CondMat.txt", "ca-AstroPh.txt", "facebook_combined.txt", "roadNet-PA.txt", "ca-GrQc.txt"]
+    graph = read_file(files[3])
     #print get_most_influential_nodes_upci(graph, 10)
 
     # Draw uPCI
